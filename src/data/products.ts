@@ -4,88 +4,87 @@ import premiumShirtImage from "@/assets/premium-shirt-blue.jpg";
 
 export const products: Product[] = [
   {
-    id: "basic-tee",
-    name: "Basic Tee",
-    price: 2500,
-    sku: "ST-TEE-001",
-    category: "Tops",
-    images: [basicTeeImage],
-    description: "Soft cotton everyday tee.",
-    features: ["100% cotton", "Breathable", "S–XL"],
+    id: "logo-design",
+    name: "Professional Logo Design",
+    price: 5000,
+    sku: "SD-LOGO-001",
+    category: "Logo Design",
+    images: [basicTeeImage], // Will be replaced with design previews
+    description: "Custom logo design that represents your brand perfectly.",
+    features: ["3 concept variations", "Unlimited revisions", "Vector files included", "Brand guide"],
     variants: [
-      { name: "Color", options: ["Black", "White", "Navy"] },
-      { name: "Size", options: ["S", "M", "L", "XL"] }
+      { name: "Package", options: ["Basic", "Premium", "Enterprise"] },
+      { name: "Delivery", options: ["3 days", "5 days", "7 days"] }
     ]
   },
   {
-    id: "premium-shirt",
-    name: "Premium Shirt",
-    price: 4900,
-    sku: "ST-SHIRT-002",
-    category: "Shirts",
-    images: [premiumShirtImage],
-    description: "Tailored fit, wrinkle-resistant.",
-    features: ["Stretch fabric", "Easy care"],
+    id: "tshirt-design",
+    name: "T-Shirt Design",
+    price: 3500,
+    sku: "SD-TSHIRT-002", 
+    category: "T-Shirt Design",
+    images: [premiumShirtImage], // Will be replaced with t-shirt mockups
+    description: "Eye-catching t-shirt designs for your brand or event.",
+    features: ["Print-ready files", "Multiple sizes", "Color variations", "Mockup included"],
     variants: [
-      { name: "Color", options: ["Light Blue", "Charcoal"] },
-      { name: "Neck", options: ["Classic", "Button-down"] },
-      { name: "Size", options: ["S", "M", "L", "XL"] }
+      { name: "Style", options: ["Minimalist", "Vintage", "Modern", "Artistic"] },
+      { name: "Colors", options: ["1 Color", "2 Colors", "Full Color"] }
     ]
   },
   {
-    id: "hoodie",
-    name: "Hoodie",
-    price: 6900,
-    sku: "ST-HOODIE-003",
-    category: "Hoodies",
-    images: [basicTeeImage], // Placeholder - will be replaced with hoodie image
-    description: "Comfortable fleece-lined hoodie.",
-    features: ["Fleece lined", "Unisex", "Kangaroo pocket"],
+    id: "ui-design",
+    name: "UI/UX Design",
+    price: 12000,
+    sku: "SD-UI-003",
+    category: "UI/UX Design", 
+    images: [basicTeeImage], // Will be replaced with UI previews
+    description: "Modern and intuitive user interface designs for web and mobile.",
+    features: ["Wireframes", "Interactive prototypes", "Design system", "Developer handoff"],
     variants: [
-      { name: "Color", options: ["Black", "Gray", "Navy"] },
-      { name: "Size", options: ["S", "M", "L", "XL", "XXL"] }
+      { name: "Platform", options: ["Web", "Mobile", "Both"] },
+      { name: "Pages", options: ["5 pages", "10 pages", "15+ pages"] }
     ]
   },
   {
-    id: "polo-shirt",
-    name: "Polo Shirt", 
-    price: 3900,
-    sku: "ST-POLO-004",
-    category: "Shirts",
-    images: [premiumShirtImage], // Placeholder
-    description: "Classic polo with modern cut.",
-    features: ["Pique fabric", "Collar", "3-button placket"],
+    id: "business-card",
+    name: "Business Card Design",
+    price: 2000,
+    sku: "SD-CARD-004",
+    category: "Print Design",
+    images: [premiumShirtImage], // Will be replaced with card designs
+    description: "Professional business cards that make a lasting impression.",
+    features: ["Double-sided design", "Print-ready files", "Multiple layouts", "QR code integration"],
     variants: [
-      { name: "Color", options: ["White", "Navy", "Green"] },
-      { name: "Size", options: ["S", "M", "L", "XL"] }
+      { name: "Finish", options: ["Matte", "Glossy", "Premium"] },
+      { name: "Quantity", options: ["100", "500", "1000"] }
     ]
   },
   {
-    id: "denim-jacket",
-    name: "Denim Jacket",
-    price: 8900,
-    sku: "ST-DENIM-005", 
-    category: "Jackets",
-    images: [basicTeeImage], // Placeholder
-    description: "Classic denim jacket with modern styling.",
-    features: ["100% cotton denim", "Chest pockets", "Button closure"],
+    id: "social-media-kit",
+    name: "Social Media Design Kit",
+    price: 8500,
+    sku: "SD-SOCIAL-005",
+    category: "Social Media",
+    images: [basicTeeImage], // Will be replaced with social media templates
+    description: "Complete social media branding kit for all platforms.",
+    features: ["Instagram templates", "Facebook covers", "Story templates", "Post designs"],
     variants: [
-      { name: "Color", options: ["Blue", "Black", "Light Blue"] },
-      { name: "Size", options: ["S", "M", "L", "XL"] }
+      { name: "Platform", options: ["Instagram", "Facebook", "All Platforms"] },
+      { name: "Templates", options: ["10 designs", "20 designs", "30+ designs"] }
     ]
   },
   {
-    id: "chinos",
-    name: "Chinos",
-    price: 5900,
-    sku: "ST-CHINO-006",
-    category: "Pants",
-    images: [premiumShirtImage], // Placeholder
-    description: "Versatile chino pants for any occasion.",
-    features: ["Cotton twill", "Slim fit", "4 pockets"],
+    id: "custom-illustration",
+    name: "Custom Illustration",
+    price: 15000,
+    sku: "SD-ILLUS-006", 
+    category: "Illustration",
+    images: [premiumShirtImage], // Will be replaced with illustration samples
+    description: "Unique custom illustrations for your brand or personal use.",
+    features: ["Hand-drawn artwork", "Digital rendering", "Multiple formats", "Commercial license"],
     variants: [
-      { name: "Color", options: ["Khaki", "Navy", "Olive"] },
-      { name: "Size", options: ["28", "30", "32", "34", "36"] }
+      { name: "Style", options: ["Realistic", "Cartoon", "Abstract", "Minimalist"] },
+      { name: "Complexity", options: ["Simple", "Detailed", "Highly Complex"] }
     ]
   }
 ];

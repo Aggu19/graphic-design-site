@@ -6,9 +6,9 @@ import { useCart } from "@/contexts/CartContext";
 
 const navigation = [
   { label: "Home", href: "/" },
-  { label: "Shop", href: "/products" },
+  { label: "Services", href: "/products" },
+  { label: "Portfolio", href: "/#portfolio" },
   { label: "Pricing", href: "/pricing" },
-  { label: "FAQs", href: "/faqs" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -26,7 +26,7 @@ export const Header = () => {
             <div className="h-8 w-8 rounded-lg bg-gradient-primary flex items-center justify-center">
               <span className="text-sm font-bold text-white">S</span>
             </div>
-            <span className="text-xl font-bold text-foreground">Snap Styles</span>
+            <span className="text-xl font-bold text-foreground">Snap Designs</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -63,11 +63,11 @@ export const Header = () => {
             </Button>
             <Button variant="default" asChild>
               <a
-                href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Styles%2C%20I%20want%20to%20order."
+                href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Designs%2C%20I%20want%20a%20custom%20design."
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Order on WhatsApp
+                Get Quote
               </a>
             </Button>
           </div>
@@ -122,11 +122,11 @@ export const Header = () => {
               <div className="px-3 py-2">
                 <Button className="w-full" asChild>
                   <a
-                    href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Styles%2C%20I%20want%20to%20order."
+                    href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Designs%2C%20I%20want%20a%20custom%20design."
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Order on WhatsApp
+                    Get Quote
                   </a>
                 </Button>
               </div>

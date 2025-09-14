@@ -11,10 +11,10 @@ import { products } from "@/data/products";
 const categories = ["All", ...Array.from(new Set(products.map(p => p.category)))];
 const priceRanges = [
   { label: "All", min: 0, max: Infinity },
-  { label: "Under Rs 3,000", min: 0, max: 3000 },
-  { label: "Rs 3,000 - Rs 5,000", min: 3000, max: 5000 },
-  { label: "Rs 5,000 - Rs 7,000", min: 5000, max: 7000 },
-  { label: "Above Rs 7,000", min: 7000, max: Infinity },
+  { label: "Under Rs 5,000", min: 0, max: 5000 },
+  { label: "Rs 5,000 - Rs 10,000", min: 5000, max: 10000 },
+  { label: "Rs 10,000 - Rs 15,000", min: 10000, max: 15000 },
+  { label: "Above Rs 15,000", min: 15000, max: Infinity },
 ];
 
 const sortOptions = [
@@ -71,14 +71,14 @@ const Products = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-muted/30 py-12">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold text-center mb-4">Shop All Products</h1>
-          <p className="text-muted-foreground text-lg text-center max-w-2xl mx-auto">
-            Discover our complete collection of quality fashion essentials with transparent pricing.
-          </p>
+        <div className="bg-muted/30 py-12">
+          <div className="container mx-auto px-4">
+            <h1 className="text-4xl font-bold text-center mb-4">Design Services</h1>
+            <p className="text-muted-foreground text-lg text-center max-w-2xl mx-auto">
+              Professional design solutions with transparent pricing and bidding options.
+            </p>
+          </div>
         </div>
-      </div>
 
       <div className="container mx-auto px-4 py-8">
         {/* Filters and Search */}
@@ -180,7 +180,7 @@ const Products = () => {
         {/* Results Count */}
         <div className="flex justify-between items-center mb-6">
           <p className="text-muted-foreground">
-            Showing {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
+            Showing {filteredProducts.length} service{filteredProducts.length !== 1 ? 's' : ''}
           </p>
         </div>
 
@@ -188,7 +188,7 @@ const Products = () => {
         {filteredProducts.length === 0 ? (
           <Card className="p-12 text-center">
             <CardContent className="p-0">
-              <p className="text-muted-foreground text-lg mb-4">No products found matching your criteria.</p>
+              <p className="text-muted-foreground text-lg mb-4">No services found matching your criteria.</p>
               <Button 
                 variant="outline" 
                 onClick={() => {
@@ -226,15 +226,15 @@ const Products = () => {
         {filteredProducts.length > 0 && (
           <div className="text-center mt-12">
             <p className="text-muted-foreground">
-              Want more options? Contact us on WhatsApp for custom requests!
+              Need something custom? Let's discuss your design needs!
             </p>
             <Button variant="whatsapp" className="mt-4" asChild>
               <a
-                href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Styles%2C%20I%20need%20more%20product%20options."
+                href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Designs%2C%20I%20need%20a%20custom%20design%20solution."
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Contact on WhatsApp
+                Get Custom Quote
               </a>
             </Button>
           </div>

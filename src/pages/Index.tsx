@@ -1,34 +1,36 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ProductCard } from "@/components/ProductCard";
+import { BiddingCard } from "@/components/BiddingCard";
+import { PortfolioSection } from "@/components/PortfolioSection";
 import { Badge } from "@/components/ui/badge";
-import { MessageCircle, Truck, Shield, Star } from "lucide-react";
+import { MessageCircle, Truck, Shield, Star, Palette, Zap, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getFeaturedProducts } from "@/data/products";
 import heroImage from "@/assets/hero-fashion.jpg";
 
 const features = [
   {
-    title: "Transparent Pricing",
-    description: "No surprises—see prices upfront.",
-    icon: Shield
+    title: "Custom Designs",
+    description: "Tailored designs that match your vision perfectly.",
+    icon: Palette
   },
   {
-    title: "WhatsApp Orders",
-    description: "Ask questions and confirm orders instantly.",
-    icon: MessageCircle
+    title: "Quick Quotes",
+    description: "Get instant quotes and discuss projects on WhatsApp.",
+    icon: Zap
   },
   {
-    title: "Fast Delivery",
-    description: "Island-wide shipping within 2–4 days.",
-    icon: Truck
+    title: "Fast Turnaround",
+    description: "Quality designs delivered within 3-7 days.",
+    icon: Award
   }
 ];
 
 const testimonials = [
-  { name: "Aisha", quote: "Super easy to order via WhatsApp!" },
-  { name: "Ravi", quote: "Quality products and quick delivery." },
-  { name: "Priya", quote: "Love the transparent pricing!" }
+  { name: "Aisha", quote: "Amazing logo design! Exactly what I envisioned." },
+  { name: "Ravi", quote: "Professional UI design, boosted our conversions by 40%." },
+  { name: "Priya", quote: "Creative t-shirt designs that our customers love!" }
 ];
 
 const Index = () => {
@@ -50,14 +52,14 @@ const Index = () => {
         <div className="relative z-10 container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto animate-fade-in">
             <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
-              Style made easy.
+              Design made simple.
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Browse. Tap. Order on WhatsApp. Fast delivery.
+              Custom designs. Quick quotes. Professional results.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="hero" asChild className="text-lg px-8 py-4 h-auto">
-                <Link to="/products">Shop Now</Link>
+                <Link to="/products">View Services</Link>
               </Button>
               <Button 
                 size="lg" 
@@ -66,12 +68,12 @@ const Index = () => {
                 className="text-lg px-8 py-4 h-auto"
               >
                 <a
-                  href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Styles%2C%20I%20want%20to%20order."
+                  href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Designs%2C%20I%20need%20a%20custom%20design%20quote."
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="mr-2" />
-                  Order on WhatsApp
+                  Get Quote
                 </a>
               </Button>
             </div>
@@ -83,9 +85,9 @@ const Index = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Snap Styles?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Snap Designs?</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              We make fashion simple with transparent pricing and instant ordering.
+              Professional design solutions with transparent pricing and quick delivery.
             </p>
           </div>
           
@@ -108,18 +110,21 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
+      {/* Portfolio Section */}
+      <PortfolioSection />
+
+      {/* Popular Services */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Best Sellers</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Popular Services</h2>
             <p className="text-muted-foreground text-lg">
-              Discover our most popular items loved by customers.
+              Our most requested design services loved by clients.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredProducts.map((product, index) => (
+            {featuredProducts.slice(0, 3).map((product, index) => (
               <div 
                 key={product.id} 
                 className="animate-fade-in" 
@@ -129,10 +134,32 @@ const Index = () => {
               </div>
             ))}
           </div>
+
+          {/* Bidding Section */}
+          <div className="mt-16">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold mb-2">🔥 Live Bidding Projects</h3>
+              <p className="text-muted-foreground">
+                Get amazing designs at competitive prices! Place your bid now.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {featuredProducts.slice(3, 6).map((product, index) => (
+                <div 
+                  key={`bidding-${product.id}`} 
+                  className="animate-fade-in" 
+                  style={{ animationDelay: `${(index + 3) * 100}ms` }}
+                >
+                  <BiddingCard product={product} />
+                </div>
+              ))}
+            </div>
+          </div>
           
           <div className="text-center">
             <Button size="lg" variant="outline" asChild>
-              <Link to="/products">View All Products</Link>
+              <Link to="/products">View All Services</Link>
             </Button>
           </div>
         </div>
@@ -180,24 +207,24 @@ const Index = () => {
       <section className="py-20 bg-gradient-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to upgrade your style?
+            Ready to bring your vision to life?
           </h2>
           <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
-            Browse our collection and order instantly via WhatsApp. 
-            Fast delivery, hassle-free returns.
+            Get custom designs that perfectly represent your brand. 
+            Quick quotes, fast delivery, unlimited revisions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" asChild>
-              <Link to="/products">Browse Collection</Link>
+              <Link to="/products">Browse Services</Link>
             </Button>
             <Button size="lg" variant="whatsapp" asChild>
               <a
-                href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Styles%2C%20I%20want%20to%20order."
+                href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Designs%2C%20I%20need%20a%20design%20quote."
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <MessageCircle className="mr-2" />
-                Order Now
+                Get Quote
               </a>
             </Button>
           </div>

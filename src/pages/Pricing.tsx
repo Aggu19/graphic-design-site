@@ -5,44 +5,44 @@ import { Badge } from "@/components/ui/badge";
 
 const pricingPlans = [
   {
-    name: "Basic Tee",
-    price: "Rs 2,500",
-    originalPrice: "Rs 3,000",
-    features: ["100% cotton", "S–XL sizes", "3 color options", "Machine washable"],
+    name: "Logo Design",
+    price: "Rs 5,000",
+    originalPrice: "Rs 8,000",
+    features: ["3 concept variations", "Unlimited revisions", "Vector files", "Brand guidelines"],
     cta: { 
       text: "Order on WhatsApp", 
-      href: "https://wa.me/YOUR_WHATSAPP_NUMBER?text=I%20want%20the%20Basic%20Tee" 
+      href: "https://wa.me/YOUR_WHATSAPP_NUMBER?text=I%20want%20a%20Logo%20Design%20service" 
     },
     popular: false
   },
   {
-    name: "Premium Shirt",
-    price: "Rs 4,900",
-    originalPrice: "Rs 5,900",
-    features: ["Wrinkle-resistant fabric", "Tailored fit", "Button-down collar", "Professional quality"],
+    name: "UI/UX Design",
+    price: "Rs 12,000",
+    originalPrice: "Rs 18,000",
+    features: ["User research", "Wireframing", "Interactive prototypes", "Design system"],
     cta: { 
       text: "Order on WhatsApp", 
-      href: "https://wa.me/YOUR_WHATSAPP_NUMBER?text=I%20want%20the%20Premium%20Shirt" 
+      href: "https://wa.me/YOUR_WHATSAPP_NUMBER?text=I%20want%20UI/UX%20Design%20service" 
     },
     popular: true
   },
   {
-    name: "Hoodie",
-    price: "Rs 6,900",
-    originalPrice: "Rs 8,000",
-    features: ["Fleece lined", "Unisex design", "Kangaroo pocket", "Drawstring hood"],
+    name: "T-Shirt Design",
+    price: "Rs 3,500",
+    originalPrice: "Rs 5,000",
+    features: ["Custom artwork", "Print-ready files", "Multiple formats", "Commercial license"],
     cta: { 
       text: "Order on WhatsApp", 
-      href: "https://wa.me/YOUR_WHATSAPP_NUMBER?text=I%20want%20the%20Hoodie" 
+      href: "https://wa.me/YOUR_WHATSAPP_NUMBER?text=I%20want%20T-Shirt%20Design%20service" 
     },
     popular: false
   }
 ];
 
 const bulkDiscounts = [
-  { quantity: "3-5 items", discount: "10% off", code: "BULK10" },
-  { quantity: "6-10 items", discount: "15% off", code: "BULK15" },
-  { quantity: "11+ items", discount: "20% off", code: "BULK20" },
+  { quantity: "3-5 projects", discount: "10% off", code: "DESIGN10" },
+  { quantity: "6-10 projects", discount: "15% off", code: "DESIGN15" },
+  { quantity: "11+ projects", discount: "25% off", code: "DESIGN25" },
 ];
 
 const Pricing = () => {
@@ -52,11 +52,11 @@ const Pricing = () => {
       <div className="bg-gradient-hero py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Transparent Pricing
+            Design Service Pricing
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Simple pricing per item. No hidden costs, no surprises. 
-            Bulk discounts available on WhatsApp.
+            Professional design services with transparent pricing. 
+            No hidden costs, bulk discounts available.
           </p>
         </div>
       </div>
@@ -133,7 +133,7 @@ const Pricing = () => {
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold">Bulk Discounts</CardTitle>
             <p className="text-muted-foreground">
-              Order multiple items and save more! Contact us on WhatsApp to apply discounts.
+              Order multiple design services and save more! Contact us on WhatsApp to apply discounts.
             </p>
           </CardHeader>
           <CardContent>
@@ -151,7 +151,7 @@ const Pricing = () => {
             <div className="text-center mt-8">
               <Button variant="whatsapp" size="lg" asChild>
                 <a
-                  href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Styles%2C%20I%20want%20to%20order%20multiple%20items%20for%20bulk%20discount."
+                  href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Designs%2C%20I%20want%20to%20order%20multiple%20design%20services%20for%20bulk%20discount."
                   target="_blank"
                   rel="noopener noreferrer"
                 >
