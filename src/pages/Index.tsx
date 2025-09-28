@@ -4,9 +4,9 @@ import { ProductCard } from "@/components/ProductCard";
 import { BiddingCard } from "@/components/BiddingCard";
 import { PortfolioSection } from "@/components/PortfolioSection";
 import { Badge } from "@/components/ui/badge";
-import { MessageCircle, Truck, Shield, Star, Palette, Zap, Award } from "lucide-react";
+import { MessageCircle, Truck, Shield, Star, Palette, Zap, Award, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { getFeaturedProducts } from "@/data/products";
+import { useFeaturedProducts } from "@/hooks/useProducts";
 import heroImage from "@/assets/hero-fashion.jpg";
 
 const features = [
@@ -34,45 +34,44 @@ const testimonials = [
 ];
 
 const Index = () => {
-  const featuredProducts = getFeaturedProducts(6);
+  const { products: featuredProducts, loading, error } = useFeaturedProducts(6);
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center bg-gradient-hero overflow-hidden">
+      <section className="relative min-h-[70vh] sm:min-h-[80vh] lg:min-h-screen flex items-center justify-center bg-gradient-hero overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={heroImage}
             alt="Fashion Hero"
-            className="w-full h-full object-cover opacity-20"
+            className="w-full h-full object-cover opacity-40 sm:opacity-50 md:opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-hero" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/20 to-transparent" />
         </div>
         
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <div className="max-w-4xl mx-auto animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-4xl mx-auto animate-fade-in py-12 sm:py-16 lg:py-20">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white drop-shadow-lg mb-4 sm:mb-6 leading-tight">
               Design made simple.
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 drop-shadow-md mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
               Custom designs. Quick quotes. Professional results.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="hero" asChild className="text-lg px-8 py-4 h-auto">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center max-w-md sm:max-w-none mx-auto">
+              <Button size="lg" asChild className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 h-auto w-full sm:w-auto bg-white text-gray-900 hover:bg-white/90 shadow-lg">
                 <Link to="/products">View Services</Link>
               </Button>
               <Button 
                 size="lg" 
-                variant="whatsapp" 
                 asChild
-                className="text-lg px-8 py-4 h-auto"
+                className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 h-auto w-full sm:w-auto bg-black/80 text-white hover:bg-black/90 shadow-lg backdrop-blur-sm"
               >
                 <a
                   href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Snap%20Designs%2C%20I%20need%20a%20custom%20design%20quote."
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <MessageCircle className="mr-2" />
+                  <MessageCircle className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                   Get Quote
                 </a>
               </Button>
@@ -123,17 +122,28 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredProducts.slice(0, 3).map((product, index) => (
-              <div 
-                key={product.id} 
-                className="animate-fade-in" 
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex justify-center items-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin" />
+              <span className="ml-2">Loading featured products...</span>
+            </div>
+          ) : error ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">Failed to load featured products. Please try again later.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {featuredProducts.slice(0, 3).map((product, index) => (
+                <div 
+                  key={product.id} 
+                  className="animate-fade-in" 
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Bidding Section */}
           <div className="mt-16">
@@ -144,17 +154,28 @@ const Index = () => {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {featuredProducts.slice(3, 6).map((product, index) => (
-                <div 
-                  key={`bidding-${product.id}`} 
-                  className="animate-fade-in" 
-                  style={{ animationDelay: `${(index + 3) * 100}ms` }}
-                >
-                  <BiddingCard product={product} />
-                </div>
-              ))}
-            </div>
+            {loading ? (
+              <div className="flex justify-center items-center py-8">
+                <Loader2 className="h-6 w-6 animate-spin" />
+                <span className="ml-2">Loading bidding projects...</span>
+              </div>
+            ) : error ? (
+              <div className="text-center py-8">
+                <p className="text-muted-foreground">Failed to load bidding projects.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {featuredProducts.slice(3, 6).map((product, index) => (
+                  <div 
+                    key={`bidding-${product.id}`} 
+                    className="animate-fade-in" 
+                    style={{ animationDelay: `${(index + 3) * 100}ms` }}
+                  >
+                    <BiddingCard product={product} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           
           <div className="text-center">
