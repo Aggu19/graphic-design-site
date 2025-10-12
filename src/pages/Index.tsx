@@ -6,7 +6,7 @@ import { PortfolioSection } from "@/components/PortfolioSection";
 import { Badge } from "@/components/ui/badge";
 import { MessageCircle, Truck, Shield, Star, Palette, Zap, Award, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useFeaturedProducts } from "@/hooks/useProducts";
+import { getFeaturedProducts } from "@/data/products";
 import heroImage from "@/assets/hero-fashion.jpg";
 
 const features = [
@@ -34,7 +34,7 @@ const testimonials = [
 ];
 
 const Index = () => {
-  const { products: featuredProducts, loading, error } = useFeaturedProducts(6);
+  const featuredProducts = getFeaturedProducts(6);
 
   return (
     <div className="min-h-screen">
