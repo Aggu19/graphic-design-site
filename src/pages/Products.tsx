@@ -34,7 +34,7 @@ const Products = () => {
   const [categories, setCategories] = useState(["All"]);
 
   // Build API parameters
-  const apiParams = {
+  const apiParams: any = {
     search: searchTerm || undefined,
     category: selectedCategory !== "All" ? selectedCategory : undefined,
     featured: undefined,
