@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ProductCard } from "@/components/ProductCard";
@@ -35,6 +36,13 @@ const testimonials = [
 
 const Index = () => {
   const featuredProducts = getFeaturedProducts(6);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -44,9 +52,17 @@ const Index = () => {
           <img
             src={heroImage}
             alt="Fashion Hero"
-            className="w-full h-full object-cover opacity-40 sm:opacity-50 md:opacity-60"
+            className={`w-full h-full object-cover transition-all duration-300 blur-sm ${
+              scrollY > 50 
+                ? 'opacity-20 sm:opacity-25 md:opacity-30' 
+                : 'opacity-40 sm:opacity-50 md:opacity-60'
+            }`}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/20 to-transparent" />
+          <div className={`absolute inset-0 transition-all duration-300 backdrop-blur-sm ${
+            scrollY > 50 
+              ? 'bg-gradient-to-br from-black/50 via-black/40 to-black/30' 
+              : 'bg-gradient-to-br from-black/30 via-black/20 to-transparent'
+          }`} />
         </div>
         
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
