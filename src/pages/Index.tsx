@@ -6,7 +6,7 @@ import { PortfolioSection } from "@/components/PortfolioSection";
 import { Badge } from "@/components/ui/badge";
 import { MessageCircle, Truck, Shield, Star, Palette, Zap, Award, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useFeaturedProducts } from "@/hooks/useProducts";
+import { getFeaturedProducts } from "@/data/products";
 import heroImage from "@/assets/hero-fashion.jpg";
 
 const features = [
@@ -34,7 +34,7 @@ const testimonials = [
 ];
 
 const Index = () => {
-  const { products: featuredProducts, loading, error } = useFeaturedProducts(6);
+  const featuredProducts = getFeaturedProducts(6);
 
   return (
     <div className="min-h-screen">
@@ -122,28 +122,17 @@ const Index = () => {
             </p>
           </div>
           
-          {loading ? (
-            <div className="flex justify-center items-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin" />
-              <span className="ml-2">Loading featured products...</span>
-            </div>
-          ) : error ? (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">Failed to load featured products. Please try again later.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {featuredProducts.slice(0, 3).map((product, index) => (
-                <div 
-                  key={product.id} 
-                  className="animate-fade-in" 
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <ProductCard product={product} />
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {featuredProducts.slice(0, 3).map((product, index) => (
+              <div 
+                key={product.id} 
+                className="animate-fade-in" 
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
 
           {/* Bidding Section */}
           <div className="mt-16">
@@ -154,28 +143,17 @@ const Index = () => {
               </p>
             </div>
             
-            {loading ? (
-              <div className="flex justify-center items-center py-8">
-                <Loader2 className="h-6 w-6 animate-spin" />
-                <span className="ml-2">Loading bidding projects...</span>
-              </div>
-            ) : error ? (
-              <div className="text-center py-8">
-                <p className="text-muted-foreground">Failed to load bidding projects.</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {featuredProducts.slice(3, 6).map((product, index) => (
-                  <div 
-                    key={`bidding-${product.id}`} 
-                    className="animate-fade-in" 
-                    style={{ animationDelay: `${(index + 3) * 100}ms` }}
-                  >
-                    <BiddingCard product={product} />
-                  </div>
-                ))}
-              </div>
-            )}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {featuredProducts.slice(3, 6).map((product, index) => (
+                <div 
+                  key={`bidding-${product.id}`} 
+                  className="animate-fade-in" 
+                  style={{ animationDelay: `${(index + 3) * 100}ms` }}
+                >
+                  <BiddingCard product={product} />
+                </div>
+              ))}
+            </div>
           </div>
           
           <div className="text-center">

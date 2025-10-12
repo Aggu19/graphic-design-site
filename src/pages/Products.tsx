@@ -1,14 +1,14 @@
-import { useState, useMemo } from "react";
-import { Search, Filter, Grid, List } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Search, Filter, Grid, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ProductCard } from "@/components/ProductCard";
-import { products } from "@/data/products";
+import { useProducts } from "@/hooks/useProducts";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
-const categories = ["All", ...Array.from(new Set(products.map(p => p.category)))];
 const priceRanges = [
   { label: "All", min: 0, max: Infinity },
   { label: "Under Rs 5,000", min: 0, max: 5000 },
@@ -18,55 +18,74 @@ const priceRanges = [
 ];
 
 const sortOptions = [
-  { label: "Latest", value: "latest" },
-  { label: "Price: Low to High", value: "price_asc" },
-  { label: "Price: High to Low", value: "price_desc" },
-  { label: "Popularity", value: "popularity" },
+  { label: "Latest", value: "created_at" },
+  { label: "Price: Low to High", value: "price" },
+  { label: "Price: High to Low", value: "price" },
+  { label: "Name A-Z", value: "name" },
 ];
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedPriceRange, setSelectedPriceRange] = useState("All");
-  const [sortBy, setSortBy] = useState("latest");
+  const [sortBy, setSortBy] = useState("created_at");
+  const [sortOrder, setSortOrder] = useState("desc");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [categories, setCategories] = useState(["All"]);
 
-  const filteredProducts = useMemo(() => {
-    let filtered = products.filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          product.features.some(feature => feature.toLowerCase().includes(searchTerm.toLowerCase()));
-      
-      const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
-      
+  // Build API parameters
+  const apiParams: any = {
+    search: searchTerm || undefined,
+    category: selectedCategory !== "All" ? selectedCategory : undefined,
+    featured: undefined,
+    page: 1,
+    limit: 24,
+    sort: sortBy,
+    order: sortOrder
+  };
+
+  const { products, loading, error, pagination, updateParams } = useProducts(apiParams);
+
+  // Update API parameters when filters change
+  useEffect(() => {
+    const newParams = { ...apiParams };
+    
+    // Handle price range filtering (client-side for now)
+    if (selectedPriceRange !== "All") {
       const priceRange = priceRanges.find(range => range.label === selectedPriceRange);
-      const matchesPrice = priceRange ? 
-        product.price >= priceRange.min && product.price <= priceRange.max : 
-        true;
-      
-      return matchesSearch && matchesCategory && matchesPrice;
-    });
-
-    // Sort products
-    switch (sortBy) {
-      case "price_asc":
-        filtered.sort((a, b) => a.price - b.price);
-        break;
-      case "price_desc":
-        filtered.sort((a, b) => b.price - a.price);
-        break;
-      case "popularity":
-        // For demo, we'll shuffle. In real app, use actual popularity data
-        filtered.sort(() => Math.random() - 0.5);
-        break;
-      case "latest":
-      default:
-        // Keep original order (latest first)
-        break;
+      if (priceRange) {
+        newParams.minPrice = priceRange.min;
+        newParams.maxPrice = priceRange.max;
+      }
     }
 
-    return filtered;
-  }, [searchTerm, selectedCategory, selectedPriceRange, sortBy]);
+    updateParams(newParams);
+  }, [searchTerm, selectedCategory, selectedPriceRange, sortBy, sortOrder]);
+
+  // Handle sort order for price
+  const handleSortChange = (value: string) => {
+    if (value === "price") {
+      if (sortBy === "price" && sortOrder === "asc") {
+        setSortOrder("desc");
+      } else {
+        setSortBy("price");
+        setSortOrder("asc");
+      }
+    } else {
+      setSortBy(value);
+      setSortOrder("desc");
+    }
+  };
+
+  // Filter products by price range (client-side filtering for price ranges)
+  const filteredProducts = products.filter(product => {
+    if (selectedPriceRange === "All") return true;
+    
+    const priceRange = priceRanges.find(range => range.label === selectedPriceRange);
+    if (!priceRange) return true;
+    
+    return product.price >= priceRange.min && product.price <= priceRange.max;
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -122,7 +141,7 @@ const Products = () => {
               </SelectContent>
             </Select>
 
-            <Select value={sortBy} onValueChange={setSortBy}>
+            <Select value={sortBy} onValueChange={handleSortChange}>
               <SelectTrigger className="w-full sm:w-48">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
@@ -177,15 +196,35 @@ const Products = () => {
           </div>
         )}
 
+        {/* Error State */}
+        {error && (
+          <Alert className="mb-6">
+            <AlertDescription>
+              {error}
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {/* Loading State */}
+        {loading && (
+          <div className="flex justify-center items-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin" />
+            <span className="ml-2">Loading products...</span>
+          </div>
+        )}
+
         {/* Results Count */}
-        <div className="flex justify-between items-center mb-6">
-          <p className="text-muted-foreground">
-            Showing {filteredProducts.length} service{filteredProducts.length !== 1 ? 's' : ''}
-          </p>
-        </div>
+        {!loading && (
+          <div className="flex justify-between items-center mb-6">
+            <p className="text-muted-foreground">
+              Showing {filteredProducts.length} service{filteredProducts.length !== 1 ? 's' : ''}
+              {pagination && ` of ${pagination.totalItems}`}
+            </p>
+          </div>
+        )}
 
         {/* Products Grid/List */}
-        {filteredProducts.length === 0 ? (
+        {!loading && filteredProducts.length === 0 ? (
           <Card className="p-12 text-center">
             <CardContent className="p-0">
               <p className="text-muted-foreground text-lg mb-4">No services found matching your criteria.</p>
@@ -201,7 +240,7 @@ const Products = () => {
               </Button>
             </CardContent>
           </Card>
-        ) : (
+        ) : !loading && (
           <div className={
             viewMode === "grid" 
               ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
